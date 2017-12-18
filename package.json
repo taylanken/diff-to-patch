@@ -4,7 +4,7 @@
     "description": "A library that compares two JavaScript- or JSON-objects and returns an array of JSON-Patch-operations representing the difference between the two objects.",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "node tests.js"
     },
     "repository": {
         "type": "git",
