@@ -63,17 +63,9 @@ function _compare(objA, objB, path) {
             });
         }
     } else if (objA.constructor === Array || objB.constuctor === Array) {
-        var arraysEqual = false;
-        if (objA.length === objB.length) {
-            for (var i = 0; i < objA.length; i++) {
-                _compare.bind(this)(objA[i], objB[i], path + '/' + i);
-            }
-        } else {
-            this.push({
-                op: 'replace',
-                path: path + '/' + i,
-                value: objB
-            });
+        var maxLength = Math.max(objA.length, objB.length);
+        for (var i = 0; i < maxLength; i++) {
+            _compare.bind(this)(objA[i], objB[i], path + '/' + i);
         }
     } else {
         var keysA = Object.keys(objA);
