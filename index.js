@@ -65,7 +65,20 @@ function _compare(objA, objB, path) {
     } else if (objA.constructor === Array || objB.constuctor === Array) {
         var maxLength = Math.max(objA.length, objB.length);
         for (var i = 0; i < maxLength; i++) {
-            _compare.bind(this)(objA[i], objB[i], path + '/' + i);
+            if (objA[i] != null && objB[i] == null) {
+                this.push({
+                    op: 'remove',
+                    path: path + '/' + i
+                });
+            } else if (objA[i] == null && objB[i] != null) {
+                this.push({
+                    op: 'add',
+                    path: path + '/' + i,
+                    value: objB[i]
+                });
+            } else {
+                _compare.bind(this)(objA[i], objB[i], path + '/' + i);
+            }
         }
     } else {
         var keysA = Object.keys(objA);
