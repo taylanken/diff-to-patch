@@ -71,6 +71,7 @@ var NoValidInputJSONError = require('./NoValidInputJSONError');
         assert.deepStrictEqual(jsonDiffPatch({}, {}), []);
         assert.deepStrictEqual(jsonDiffPatch({ prop: 'Test' }, { prop: 'Test' }), []);
         assert.deepStrictEqual(jsonDiffPatch({ prop: 123 }, { prop: 123 }), []);
+        assert.deepStrictEqual(jsonDiffPatch({ prop: { sub: 123 } }, { prop: { sub: 123 } }), []);
 
 
         assert.deepStrictEqual(jsonDiffPatch([null], [null]), []);
@@ -83,6 +84,8 @@ var NoValidInputJSONError = require('./NoValidInputJSONError');
 
         assert.deepStrictEqual(jsonDiffPatch({ prop: null }, { prop: null }), []);
         assert.deepStrictEqual(jsonDiffPatch({ prop: undefined }, { prop: undefined }), []);
+        assert.deepStrictEqual(jsonDiffPatch({ propA: null, propB: undefined }, { propA: null, propB: undefined }), []);
+
 
         console.log('\x1b[32m%s\x1b[0m', 'Empty patch set tests passed!');
     }
@@ -95,10 +98,88 @@ var NoValidInputJSONError = require('./NoValidInputJSONError');
             path: '/prop'
         }]);
 
-        assert.deepStrictEqual(jsonDiffPatch({ prop: null }, { prop: undefined }), [{
+        assert.deepStrictEqual(jsonDiffPatch({ prop: undefined }, { prop: null }), [{
+            op: 'add',
+            path: '/prop',
+            value: null
+        }]);
+
+        assert.deepStrictEqual(jsonDiffPatch({ propA: null, propB: undefined }, { propA: undefined, propB: null }), [{
+                op: 'remove',
+                path: '/propA'
+            },
+            {
+                op: 'add',
+                path: '/propB',
+                value: null
+            }
+        ]);
+
+        assert.deepStrictEqual(jsonDiffPatch({ prop: 1 }, {}), [{
             op: 'remove',
             path: '/prop'
         }]);
+
+        assert.deepStrictEqual(jsonDiffPatch({ prop: 1 }, { prop: 2 }), [{
+            op: 'replace',
+            path: '/prop',
+            value: 2
+        }]);
+
+        assert.deepStrictEqual(jsonDiffPatch({ prop: 1 }, { prop: { sub: 1 } }), [{
+            op: 'replace',
+            path: '/prop',
+            value: {
+                sub: 1
+            }
+        }]);
+
+        assert.deepStrictEqual(jsonDiffPatch([1, 2, 3], [1, 2, 4]), [{
+            op: 'replace',
+            path: '/2',
+            value: 4
+        }]);
+
+        assert.deepStrictEqual(jsonDiffPatch([1, 2, 3], [1, 2, 3, 4]), [{
+            op: 'add',
+            path: '/3',
+            value: 4
+        }]);
+
+        assert.deepStrictEqual(jsonDiffPatch([1, 2, 3, 4], [1, 2, 3]), [{
+            op: 'remove',
+            path: '/3'
+        }]);
+
+        assert.deepStrictEqual(jsonDiffPatch([
+            1,
+            { prop: 'A' },
+            [2, 3]
+        ], [
+            2,
+            { prop: 'B' },
+            [4, 5]
+        ]), [{
+                op: 'replace',
+                path: '/0',
+                value: 2
+            },
+            {
+                op: 'replace',
+                path: '/1/prop',
+                value: 'B'
+            },
+            {
+                op: 'replace',
+                path: '/2/0',
+                value: 4
+            },
+            {
+                op: 'replace',
+                path: '/2/1',
+                value: 5
+            }
+        ]);
 
         console.log('\x1b[32m%s\x1b[0m', 'Patch set tests passed!');
     }
