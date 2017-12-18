@@ -1,11 +1,11 @@
-# json-diff-patch
+# diff-to-patch
 
 A function that compares two JavaScript-objects and returns an array of JSON Patch-operations representing the difference between the two objects.
 
 ## Install
 
 ```bash
-npm install json-diff-patch
+npm install diff-to-patch
 ```
 
 ## Usage
@@ -13,24 +13,24 @@ npm install json-diff-patch
 To use the function, simply ```require``` it and pass two objects you want to compare to it:
 
 ```javascript
-const jsonDiffPatch = require('json-diff-patch');
+const diffToPatch = require('diff-to-patch');
 
-jsonDiffPatch({ foo: 'bar' }, { foo: 'baz' });
+diffToPatch({ foo: 'bar' }, { foo: 'baz' });
 // => [{ op: 'replace', path: '/foo', value: 'baz' }]
 
-jsonDiffPatch({}, { foo: 'bar' });
+diffToPatch({}, { foo: 'bar' });
 // => [{ op: 'add', path: '/foo', value: 'bar' }]
 
-jsonDiffPatch({ foo: 'bar' }, {});
+diffToPatch({ foo: 'bar' }, {});
 // => [{ op: 'remove', path: '/foo' }]
 
-jsonDiffPatch([1, 2, 3], [1, 2, 4]);
+diffToPatch([1, 2, 3], [1, 2, 4]);
 // => [{ op: 'replace', path: '/2', value: 4}]
 
-jsonDiffPatch([1, 2, 3], [1, 2, 3, 4]);
+diffToPatch([1, 2, 3], [1, 2, 3, 4]);
 // => [{ op: 'add', path: '/3', value: 4}]
 
-jsonDiffPatch([1, 2, 3], [1, 2]);
+diffToPatch([1, 2, 3], [1, 2]);
 // => [{ op: 'remove', path: '/2'}]
 ```
 
@@ -66,7 +66,7 @@ let objB = {
     email: 'bob@gmail.com'
 }
 
-jsonDiffPatch(objA, objB);
+diffToPatch(objA, objB);
 /*
     => [
         { op: 'replace', path: '/name', value: 'Bobby' },

@@ -1,5 +1,5 @@
 {
-    "name": "json-diff-patch",
+    "name": "diff-to-patch",
     "version": "0.1.0",
     "description": "A function that compares two JavaScript-objects and returns an array of JSON Patch-operations representing the difference between the two objects.",
     "main": "index.js",
@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/taylanken/json-diff-patch.git"
+        "url": "git+https://github.com/taylanken/diff-to-patch.git"
     },
     "keywords": [
         "json",
@@ -23,7 +23,7 @@
     "author": "Taylan Kenanoglu",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/taylanken/json-diff-patch/issues"
+        "url": "https://github.com/taylanken/diff-to-patch/issues"
     },
-    "homepage": "https://github.com/taylanken/json-diff-patch#readme"
+    "homepage": "https://github.com/taylanken/diff-to-patch#readme"
 }
