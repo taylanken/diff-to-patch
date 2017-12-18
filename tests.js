@@ -52,6 +52,57 @@ var NoValidInputJSONError = require('./NoValidInputJSONError');
         console.log('\x1b[32m%s\x1b[0m', 'Input validation tests passed!');
     }
 
+    this.testEmptyPatchSets = function() {
+        console.log('\x1b[36m%s\x1b[0m', 'Testing empty patch sets...');
+
+        assert.deepStrictEqual(jsonDiffPatch([], []), []);
+        assert.deepStrictEqual(jsonDiffPatch([1, 2, 3], [1, 2, 3]), []);
+        assert.deepStrictEqual(jsonDiffPatch(['A', 'B', 'C'], ['A', 'B', 'C']), []);
+        assert.deepStrictEqual(jsonDiffPatch([{
+            propA: 'Test',
+            propB: 123,
+            propC: []
+        }], [{
+            propA: 'Test',
+            propB: 123,
+            propC: []
+        }]), []);
+
+        assert.deepStrictEqual(jsonDiffPatch({}, {}), []);
+        assert.deepStrictEqual(jsonDiffPatch({ prop: 'Test' }, { prop: 'Test' }), []);
+        assert.deepStrictEqual(jsonDiffPatch({ prop: 123 }, { prop: 123 }), []);
+
+
+        assert.deepStrictEqual(jsonDiffPatch([null], [null]), []);
+        assert.deepStrictEqual(jsonDiffPatch([null], [undefined]), []);
+        assert.deepStrictEqual(jsonDiffPatch([undefined], [undefined]), []);
+
+        assert.deepStrictEqual(jsonDiffPatch([null, 1], [null, 1]), []);
+        assert.deepStrictEqual(jsonDiffPatch([null, 1], [undefined, 1]), []);
+        assert.deepStrictEqual(jsonDiffPatch([undefined, 1], [undefined, 1]), []);
+
+        assert.deepStrictEqual(jsonDiffPatch({ prop: null }, { prop: null }), []);
+        assert.deepStrictEqual(jsonDiffPatch({ prop: undefined }, { prop: undefined }), []);
+
+        console.log('\x1b[32m%s\x1b[0m', 'Empty patch set tests passed!');
+    }
+
+    this.testPatchSets = function() {
+        console.log('\x1b[36m%s\x1b[0m', 'Testing patch sets...');
+
+        assert.deepStrictEqual(jsonDiffPatch({ prop: null }, { prop: undefined }), [{
+            op: 'remove',
+            path: '/prop'
+        }]);
+
+        assert.deepStrictEqual(jsonDiffPatch({ prop: null }, { prop: undefined }), [{
+            op: 'remove',
+            path: '/prop'
+        }]);
+
+        console.log('\x1b[32m%s\x1b[0m', 'Patch set tests passed!');
+    }
+
     for (var key in this) {
         this[key]();
     }

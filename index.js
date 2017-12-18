@@ -80,7 +80,7 @@ function _compare(objA, objB, path) {
         var keysB = Object.keys(objB);
 
         for (var i = 0; i < keysA.length; i++) {
-            if (keysB.indexOf(keysA[i]) === -1 || objB[keysA[i]] == null) {
+            if (keysB.indexOf(keysA[i]) === -1 || (objA[keysA[i]] != null && objB[keysA[i]] == null)) {
                 this.push({
                     op: 'remove',
                     path: path + '/' + keysA[i]
@@ -91,7 +91,7 @@ function _compare(objA, objB, path) {
         }
 
         for (var i = 0; i < keysB.length; i++) {
-            if (keysA.indexOf(keysB[i]) === -1 || objA[keysB[i]] == null) {
+            if (keysA.indexOf(keysB[i]) === -1 || (objB[keysB[i]] != null && objA[keysB[i]] == null)) {
                 this.push({
                     op: 'add',
                     path: path + '/' + keysB[i],
