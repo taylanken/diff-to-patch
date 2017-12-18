@@ -16,7 +16,9 @@
         "patch",
         "json-patch",
         "json-diff",
-        "compare"
+        "compare",
+        "jsonpatch",
+        "jsondiff"
     ],
     "author": "Taylan Kenanoglu",
     "license": "MIT",
