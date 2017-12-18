@@ -36,7 +36,7 @@ function jsonDiff(objA, objB) {
     }
 
     // Check for distinct argument types
-    if (typeof objA !== typeof objB) {
+    if (typeof objA !== typeof objB || objA.constructor !== objB.constructor) {
         throw new NoValidInputJSONError('Cannot compare argument of type \'' + typeof objA + '\' with argument of type \'' + typeof objB + '\'.');
     }
 
