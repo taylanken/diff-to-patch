@@ -1,7 +1,7 @@
 {
     "name": "json-diff-patch",
     "version": "0.0.1",
-    "description": "A library that compares two JavaScript- or JSON-objects and returns an array of JSON-Patch-operations representing the difference between the two objects.",
+    "description": "A function that compares two JavaScript-objects and returns an array of JSON Patch-operations representing the difference between the two objects.",
     "main": "index.js",
     "scripts": {
         "test": "node tests.js"
