@@ -1,7 +1,4 @@
-function NoValidInputJSONError(message) {
-    this.name = 'NoValidInputJSONError';
-    this.message = message || 'The provided arguments are not valid JSON-objects.';
-}
+var NoValidInputJSONError = require('./NoValidInputJSONError');
 
 /**
  * Compares two JSON-objects and returns an array of JSON-patch-operations that represents the difference between the two objects.
