@@ -3,7 +3,12 @@ function NoValidInputJSONError(message) {
     this.message = message || 'The provided arguments are not valid JSON-objects.';
 }
 
-module.exports = exports = function jsonDiff(objA, objB) {
+/**
+ * Compares two JSON-objects and returns an array of JSON-patch-operations that represents the difference between the two objects.
+ * @param {*} objA
+ * @param {*} objB
+ */
+function jsonDiff(objA, objB) {
     // Check for null arguments
     if (objA == null ||  objB == null) {
         throw new NoValidInputJSONError('Cannot compare arguments that are NULL or UNDEFINED.');
@@ -38,3 +43,5 @@ module.exports = exports = function jsonDiff(objA, objB) {
         throw new NoValidInputJSONError('Cannot compare argument of type \'' + typeof objA + '\' with argument of type \'' + typeof objB + '\'.');
     }
 }
+
+module.exports = exports = jsonDiff;
