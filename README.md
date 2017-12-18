@@ -77,7 +77,7 @@ jsonDiffPatch(objA, objB);
 */
 ```
 
-The function validates the input arguments and throws a ```NoValidInputJSONError``` if at lest one of the input arguments...
+The function validates the input arguments and throws a ```NoValidInputJSONError``` if at least one of the input arguments...
 
 * ...is ```null``` or ```undefined```
 * ...is of a primitive type (string, boolean, number)
